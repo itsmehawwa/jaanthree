@@ -286,3 +286,48 @@ if (expoBanner) {
     }
   });
 }
+
+// Mobile-only gallery lightbox (tap photo to expand)
+const galleryLightbox = document.getElementById("gallery-lightbox");
+const galleryLightboxImage = galleryLightbox
+  ? galleryLightbox.querySelector(".gallery-lightbox__image")
+  : null;
+const mobileGalleryQuery = window.matchMedia("(max-width: 719px)");
+
+function isMobileGallery() {
+  return mobileGalleryQuery.matches;
+}
+
+function openGalleryLightbox(img) {
+  if (!galleryLightbox || !galleryLightboxImage || !img) return;
+  galleryLightboxImage.src = img.currentSrc || img.src;
+  galleryLightboxImage.alt = img.alt || "Gallery photo";
+  galleryLightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeGalleryLightbox() {
+  if (!galleryLightbox || !galleryLightboxImage) return;
+  galleryLightbox.hidden = true;
+  galleryLightboxImage.removeAttribute("src");
+  document.body.style.overflow = "";
+}
+
+if (galleryLightbox && galleryLightboxImage) {
+  document.querySelectorAll(".gallery-item img").forEach((img) => {
+    img.addEventListener("click", () => {
+      if (!isMobileGallery()) return;
+      openGalleryLightbox(img);
+    });
+  });
+
+  galleryLightbox.querySelectorAll("[data-lightbox-close]").forEach((el) => {
+    el.addEventListener("click", closeGalleryLightbox);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !galleryLightbox.hidden) {
+      closeGalleryLightbox();
+    }
+  });
+}

@@ -442,6 +442,64 @@ a:hover {
   transform: scale(1.03);
 }
 
+/* Mobile: tap gallery photos to expand */
+@media (max-width: 719px) {
+  .gallery-item {
+    cursor: zoom-in;
+  }
+
+  .gallery-item img {
+    pointer-events: auto;
+  }
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.gallery-lightbox[hidden] {
+  display: none;
+}
+
+.gallery-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 12, 16, 0.88);
+}
+
+.gallery-lightbox__image {
+  position: relative;
+  z-index: 1;
+  max-width: min(100%, 100vw - 2rem);
+  max-height: min(88vh, 900px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.35rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.gallery-lightbox__close {
+  position: absolute;
+  top: max(0.75rem, env(safe-area-inset-top));
+  right: max(0.75rem, env(safe-area-inset-right));
+  z-index: 2;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 245, 247, 0.95);
+  color: var(--ink);
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
 /* —— Contact —— */
 .contact-details {
   display: grid;
