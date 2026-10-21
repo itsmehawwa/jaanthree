@@ -9,13 +9,26 @@
       name="description"
       content="Jaan Three Floristry & Weddings — floral design and wedding floristry in Singapore."
     />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jaanthree.sg/" />
+    <meta property="og:title" content="Jaanthree Floristry &amp; Weddings" />
+    <meta
+      property="og:description"
+      content="Floral design and wedding floristry in Singapore. Your journey begins with us."
+    />
+    <meta property="og:image" content="https://jaanthree.sg/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Fleur+De+Leah&family=Great+Vibes&family=Outfit:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <div class="falling-flowers" aria-hidden="true"></div>
@@ -37,8 +50,14 @@
           <p class="hero-topline">Flowers for Every Special Moment</p>
         </div>
         <div class="hero-content">
-          <p class="brand">Jaan Three</p>
-          <h1>Your Journey Begins With Us!</h1>
+          <h1 class="hero-logo">
+            <img
+              src="images/logo.webp"
+              width="720"
+              height="574"
+              alt="Jaanthree Floristry — Your journey begins with us"
+            />
+          </h1>
           <div class="cta-row">
             <a class="btn btn-primary" href="#contact">Enquire</a>
             <a class="btn btn-ghost" href="#gallery">View work</a>
@@ -214,43 +233,46 @@
 
       <!-- CONTACT: replace phone, email, Instagram, and address -->
       <section class="section contact" id="contact">
-        <div class="section-intro">
-          <h2>Contact</h2>
-          <p>Tell us about your date, colour palette, and the feeling you want.</p>
-        </div>
-        <div class="contact-details">
-          <a
-            class="contact-card contact-card--whatsapp"
-            href="https://wa.me/6597350644?text=Hi%20Jaan%20Three%2C%20I%27d%20like%20to%20enquire%20about%20your%20floral%20services."
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="label">WhatsApp</span>
-            <span class="value">Chat with us</span>
-          </a>
-          <a class="contact-card" href="tel:+6597350644">
-            <span class="label">Phone</span>
-            <span class="value">+65 9735 0644</span>
-          </a>
-          <a class="contact-card" href="mailto:adamjaan3@gmail.com">
-            <span class="label">Email</span>
-            <span class="value">adamjaan3@gmail.com</span>
-          </a>
-          <a
-            class="contact-card"
-            href="https://instagram.com/jahanaraadam"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="label">Instagram</span>
-            <span class="value">@jahanaraadam</span>
-          </a>
+        <div class="contact-arch">
+          <div class="section-intro">
+            <h2>Contact</h2>
+            <p>Tell us about your date, colour palette, and the feeling you want.</p>
+          </div>
+          <div class="contact-details">
+            <a
+              class="contact-card contact-card--whatsapp"
+              href="https://wa.me/6597350644?text=Hi%20Jaan%20Three%2C%20I%27d%20like%20to%20enquire%20about%20your%20floral%20services."
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="label">WhatsApp</span>
+              <span class="value">Chat with us</span>
+            </a>
+            <a class="contact-card" href="tel:+6597350644">
+              <span class="label">Phone</span>
+              <span class="value">+65 9735 0644</span>
+            </a>
+            <a class="contact-card" href="mailto:adamjaan3@gmail.com">
+              <span class="label">Email</span>
+              <span class="value">adamjaan3@gmail.com</span>
+            </a>
+            <a
+              class="contact-card"
+              href="https://instagram.com/jahanaraadam"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="label">Instagram</span>
+              <span class="value">@jahanaraadam</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> Jaan Three Floristry &amp; Weddings</p>
+      <p class="footer-tagline">Your journey begins with us</p>
+      <p>© <span id="year"></span> Jaan Three Floristry &amp; Weddings · Singapore</p>
     </footer>
 
     <!-- Floating WhatsApp button -->
@@ -332,6 +354,6 @@
       <img class="gallery-lightbox__image" alt="" />
     </div>
 
-    <script src="main.js?v=6"></script>
+    <script src="main.js?v=8"></script>
   </body>
 </html>

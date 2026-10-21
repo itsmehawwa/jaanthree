@@ -104,7 +104,7 @@ const fallingItems = [
   },
   {
     type: "leaf",
-    // Pink cherry leaf — tip, midrib + veins
+    // Sea-green leaf — tip, midrib + veins
     svg: `<svg viewBox="0 0 64 64" aria-hidden="true">
       <path fill="currentColor" d="M32 2
         C46 12 56 28 52 46
@@ -115,9 +115,9 @@ const fallingItems = [
         C42 16 48 28 46 42
         C44 50 38 56 32 58
         C32 40 32 24 32 8Z"/>
-      <path fill="none" stroke="#c45a78" stroke-opacity="0.45" stroke-width="1.4"
+      <path fill="none" stroke="#2e6b4c" stroke-opacity="0.45" stroke-width="1.4"
         d="M32 6 C32 24 32 44 32 60"/>
-      <path fill="none" stroke="#c45a78" stroke-opacity="0.3" stroke-width="1"
+      <path fill="none" stroke="#2e6b4c" stroke-opacity="0.3" stroke-width="1"
         d="M32 18 C42 24 48 30 50 36
            M32 30 C42 34 48 40 50 46
            M32 18 C22 24 16 30 14 36
@@ -125,13 +125,13 @@ const fallingItems = [
            M32 42 C40 46 44 50 46 54
            M32 42 C24 46 20 50 18 54"/>
     </svg>`,
-    colors: ["#f0a0b4", "#e889a2", "#f8b4c4", "#dfa0b0", "#ffc1d0"],
+    colors: ["#8cc5a4", "#74b592", "#a3d2b6", "#6aa886", "#b5dcc4"],
     sizeMin: 16,
     sizeMax: 32,
   },
   {
     type: "leaf-tilt",
-    // Angled pink leaf
+    // Angled sea-green leaf
     svg: `<svg viewBox="0 0 64 64" aria-hidden="true">
       <path fill="currentColor" d="M50 4
         C54 8 56 12 54 16
@@ -143,14 +143,14 @@ const fallingItems = [
         C52 20 50 34 40 44
         C34 48 28 48 24 46
         C32 34 40 20 48 10Z"/>
-      <path fill="none" stroke="#c45a78" stroke-opacity="0.4" stroke-width="1.3"
+      <path fill="none" stroke="#2e6b4c" stroke-opacity="0.4" stroke-width="1.3"
         d="M50 6 C36 20 24 36 14 50"/>
-      <path fill="none" stroke="#c45a78" stroke-opacity="0.25" stroke-width="0.9"
+      <path fill="none" stroke="#2e6b4c" stroke-opacity="0.25" stroke-width="0.9"
         d="M44 12 C36 22 28 32 24 38
            M38 22 C32 30 26 38 22 44
            M40 30 C34 36 28 42 26 46"/>
     </svg>`,
-    colors: ["#e891a8", "#f5a8bb", "#d97890", "#ffb3c6"],
+    colors: ["#7dbd9a", "#94caac", "#68a984", "#a8d5bb"],
     sizeMin: 14,
     sizeMax: 28,
   },
@@ -182,7 +182,7 @@ const fallingItems = [
   },
 ];
 
-// Weighted mix: blossoms, petals, pink leaves, and buds
+// Weighted mix: blossoms, petals, green leaves, and buds
 const spawnWeights = [
   "blossom",
   "blossom",
@@ -201,7 +201,7 @@ function pickItem() {
 }
 
 function createFallingFlowers(layer, count = 22, idPrefix = "sakura") {
-  if (!layer || prefersReducedMotion) return;
+  if (!layer) return;
 
   const fragment = document.createDocumentFragment();
 
@@ -229,6 +229,11 @@ function createFallingFlowers(layer, count = 22, idPrefix = "sakura") {
       item.colors[Math.floor(Math.random() * item.colors.length)];
 
     petal.style.left = `${left}%`;
+    // Reduced motion: scatter still flowers instead of animating them
+    if (prefersReducedMotion) {
+      petal.style.top = `${Math.random() * 95}%`;
+      petal.style.transform = `rotate(${Math.round(Math.random() * 360)}deg)`;
+    }
     petal.style.setProperty("--size", `${size}px`);
     petal.style.setProperty("--fall-duration", `${fallDuration}s`);
     petal.style.setProperty("--sway-duration", `${swayDuration}s`);
@@ -253,16 +258,33 @@ const isSmallScreen = window.matchMedia("(max-width: 719px)").matches;
 flowerLayers.forEach((layer, index) => {
   const isHero = layer.classList.contains("falling-flowers--hero");
   // More flowers in the first section so they're clearly visible there
-  const count = isHero ? 40 : 24;
+  let count = isHero ? 40 : 24;
+  if (isSmallScreen) count = Math.round(count * 0.6);
+  // Still flowers need fewer to look scattered rather than cluttered
+  if (prefersReducedMotion) count = Math.round(count * 0.5);
   createFallingFlowers(
     layer,
-    isSmallScreen ? Math.round(count * 0.6) : count,
+    count,
     isHero ? "heroSakura" : `pageSakura${index}`
   );
 });
 
+// Header turns solid once the page scrolls
+const siteHeader = document.querySelector(".site-header");
+
+function updateHeader() {
+  siteHeader.classList.toggle("is-scrolled", window.scrollY > 24);
+}
+
+if (siteHeader) {
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+}
+
 // Exhibition pop-up banner
 const expoBanner = document.getElementById("expo-banner");
+// Stop showing the pop-up once the expo is over (25 Oct, Singapore time)
+const expoEnds = new Date("2026-10-26T00:00:00+08:00");
 
 function openExpoBanner() {
   if (!expoBanner) return;
@@ -276,7 +298,7 @@ function closeExpoBanner() {
   document.body.style.overflow = "";
 }
 
-if (expoBanner) {
+if (expoBanner && Date.now() < expoEnds.getTime()) {
   // Show every time the site is opened; closing only hides it for this visit
   window.setTimeout(openExpoBanner, 600);
 
