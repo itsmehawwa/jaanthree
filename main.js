@@ -247,12 +247,16 @@ function createFallingFlowers(layer, count = 22, idPrefix = "sakura") {
   layer.appendChild(fragment);
 }
 
+// Fewer flowers on phones keeps scrolling smooth on lower-end devices
+const isSmallScreen = window.matchMedia("(max-width: 719px)").matches;
+
 flowerLayers.forEach((layer, index) => {
   const isHero = layer.classList.contains("falling-flowers--hero");
   // More flowers in the first section so they're clearly visible there
+  const count = isHero ? 40 : 24;
   createFallingFlowers(
     layer,
-    isHero ? 40 : 24,
+    isSmallScreen ? Math.round(count * 0.6) : count,
     isHero ? "heroSakura" : `pageSakura${index}`
   );
 });
